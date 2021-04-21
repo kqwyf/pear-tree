@@ -124,7 +124,8 @@ function! s:ValidAfter(opener, closer, ...) abort
                 \ && a:opener[-1:] != l:next_char
         return 1
     elseif l:next_char !~# '\S' || pear_tree#IsCloser(l:next_char)
-        return !pear_tree#IsDumbPair(l:next_char)
+        return get(b:, 'match_before_dumb_pair', 0)
+                    \ || !pear_tree#IsDumbPair(l:next_char)
                     \ || l:next_char ==# a:opener[-1:]
     else
         return 0
